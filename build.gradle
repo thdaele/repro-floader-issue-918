@@ -1,7 +1,6 @@
 plugins {
 	id 'maven-publish'
 	id 'fabric-loom' version '1.6-SNAPSHOT'
-	id 'ploceus' version '1.6-SNAPSHOT'
 }
 
 base {
@@ -18,15 +17,17 @@ repositories {
 	// for more information about repositories.
 }
 
+loom {
+	noIntermediateMappings()
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings ploceus.featherMappings(project.feather_build)
-	nests ploceus.nests(project.nests_build) // remove this line if not using nests
-
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	ploceus.addCommonLibraries()
-	ploceus.dependOsl(project.osl_version)
+	mappings loom.layered {
+
+	}
 }
 
 processResources {
